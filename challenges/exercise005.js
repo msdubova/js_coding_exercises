@@ -6,7 +6,9 @@ export const findNextNumber = (nums, n) => {
 
 export const count1sand0s = (str) => {
 	if (str === undefined) throw new Error('str is required');
-	// Your code here!
+	const obj = { 1: 0, 0: 0 };
+	str.split('').forEach(item => item === '1' ? obj[1]++ : obj[0]++);
+	return obj;
 };
 
 export const reverseNumber = (n) => {
@@ -35,20 +37,24 @@ export const arrShift = (arr) => {
 export const findNeedle = (haystack, searchTerm) => {
 	if (haystack === undefined) throw new Error('haystack is required');
 	if (searchTerm === undefined) throw new Error('searchTerm is required');
-	
+
 	const arr = Object.values(haystack);
 
-  function isString(str) {
-    return typeof str === 'string' ? str.toLowerCase() : str;
-  }
+	function isString(str) {
+		return typeof str === 'string' ? str.toLowerCase() : str;
+	}
 
-  const specificData = isString(searchTerm);
-  const keys = arr.map(item => isString(item));
+	const specificData = isString(searchTerm);
+	const keys = arr.map(item => isString(item));
 
-  return keys.some(item => typeof item === 'string' && item.includes(specificData));
+	return keys.some(item => typeof item === 'string' && item.includes(specificData));
 };
 
 export const getWordFrequencies = (str) => {
 	if (str === undefined) throw new Error('str is required');
-	// Your code here!
+	const obj = {};
+	str.split(/\W+/).filter(item => item !== '').map(item => item.toLowerCase()).forEach(item => {
+		obj[item] === undefined ? obj[item] = 1 : obj[item]++
+	})
+	return obj;
 };
