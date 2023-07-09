@@ -12,6 +12,7 @@
  */
 export const sumMultiples = (arr) => {
 	if (arr === undefined) throw new Error('arr is required');
+	return arr.filter(item => item % 3 === 0 || item % 5 === 0).reduce(((a, b) => a + b), 0);
 };
 
 /**
@@ -21,6 +22,10 @@ export const sumMultiples = (arr) => {
  */
 export const isValidDNA = (str) => {
 	if (str === undefined) throw new Error('str is required');
+	const dna = ['c', 'g', 't', 'a'];
+	const arr = str.toLowerCase().split('');
+	const filteredArr = arr.filter((item) => dna.includes(item));
+	return filteredArr.length === arr.length;
 };
 
 /**
@@ -30,6 +35,17 @@ export const isValidDNA = (str) => {
  */
 export const getComplementaryDNA = (str) => {
 	if (str === undefined) throw new Error('str is required');
+	const dna = {
+		'a': 't',
+		't': 'a',
+		'c': 'g',
+		'g': 'c'
+	};
+
+	const arr = str.toLowerCase().split('');
+	const filteredArr = arr.filter((item) => Object.keys(dna).includes(item));
+	const convertedArr = filteredArr.map(item => dna[item]).join('').toUpperCase();
+	return (filteredArr.length === arr.length) ? convertedArr : 'String is not DNA';
 };
 
 /**
@@ -39,7 +55,25 @@ export const getComplementaryDNA = (str) => {
  */
 export const isItPrime = (n) => {
 	if (n === undefined) throw new Error('n is required');
-};
+	if (!Number.isInteger(n)) {
+		throw new Error('N is not a number');
+	}
+	if (n === 0) {
+		return false;
+	}
+
+	if (n === 1) {
+		return false;
+	}
+	const dividers = [];
+	for (let i = 0; i <= n; i++) {
+		if (n % i === 0) {
+			dividers.push(i);
+		}
+	}
+	return dividers.length === 2;
+}
+
 
 /**
  * This function should receive a number and return an array of n arrays, each filled with n items. The parameter "fill" should be used as the filler of the arrays. For example, given parameters 3 and "foo" the resulting matrix should be:
