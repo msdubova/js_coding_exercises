@@ -2,7 +2,9 @@ import {
     sumMultiples,
     isValidDNA,
     getComplementaryDNA,
-    isItPrime
+    isItPrime,
+    createMatrix,
+    areWeCovered
 } from "../challenges/exercise006";
 
 describe("sumMultiples", () => {
@@ -51,12 +53,12 @@ describe("isValidDna", () => {
     })
 });
 
-describe("getComplementaryDNA", ()=> {
-    test(('returns message if string is not valid DNA'), ()=> {
+describe("getComplementaryDNA", () => {
+    test(('returns message if string is not valid DNA'), () => {
         expect(getComplementaryDNA('q')).toBe('String is not DNA');
     });
 
-    test(('returns converted string if its valid'), ()=> {
+    test(('returns converted string if its valid'), () => {
         expect(getComplementaryDNA('A')).toBe('T');
         expect(getComplementaryDNA('T')).toBe('A');
         expect(getComplementaryDNA('C')).toBe('G');
@@ -71,19 +73,48 @@ describe("getComplementaryDNA", ()=> {
     })
 });
 
-describe("isItPrime", ()=> {
-    test(('n = 0 returns message'), ()=> {
+describe("isItPrime", () => {
+    test(('n = 0 returns message'), () => {
         expect(isItPrime(0)).toBe(false);
     });
-    test(('n = 1 returns message'), ()=> {
+    test(('n = 1 returns message'), () => {
         expect(isItPrime(1)).toBe(false);
     });
 
-    test(('n is non prime number'), ()=> {
+    test(('n is non prime number'), () => {
         expect(isItPrime(4)).toBe(false);
     });
 
-    test(('n is  prime number'), ()=> {
+    test(('n is  prime number'), () => {
         expect(isItPrime(3)).toBe(true);
     });
-})
+});
+
+describe('createMatrix', () => {
+    test(('returns array filled by filler'), () => {
+        expect(createMatrix(3, 'X')).toEqual([
+            ['X', 'X', 'X'],
+            ['X', 'X', 'X'],
+            ['X', 'X', 'X']])
+    });
+});
+
+describe('areWeCovered', () => {
+    test('should return true if there are at least 3 staff members scheduled for the given day', () => {
+        const staff = [
+            { name: 'John', rota: ['Monday', 'Tuesday', 'Friday'] },
+            { name: 'Jane', rota: ['Monday', 'Wednesday', 'Friday'] },
+            { name: 'Mike', rota: ['Monday', 'Friday'] },
+            { name: 'Sarah', rota: ['Monday', 'Thursday', 'Saturday'] }
+        ];
+        expect(areWeCovered(staff, 'Monday')).toBe(true);
+    });
+
+    test('should return false if there are less than 3 staff members scheduled for the given day', () => {
+        const staff = [
+            { name: 'John', rota: ['Monday', 'Tuesday', 'Friday'] },
+            { name: 'Jane', rota: ['Monday', 'Wednesday', 'Friday'] }
+        ];
+        expect(areWeCovered(staff, 'Thursday')).toBe(false);
+    });
+});
