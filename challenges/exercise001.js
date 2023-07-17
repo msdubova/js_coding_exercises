@@ -48,14 +48,16 @@ export function reverseAllWords(words) {
 
 export function countLinuxUsers(users) {
 	if (users === undefined) throw new Error('users is required');
-	return users.reduce((count, user) => {
-		return user.type === 'Linux' ? count + 1 : count;
-	}, 0);
+	// return users.reduce((count, user) => {
+	// 	return user.type === 'Linux' ? count + 1 : count;
+	// }, 0);
+
+	return users.filter(user => user.type ==='Linux').length;
 }
 
 export function getMeanScore(scores) {
 	if (scores === undefined) throw new Error('scores is required');
-	return parseFloat(((scores.reduce(((a,b)=>a +b), 0))/scores.length).toFixed(2));
+	return parseFloat(((scores.reduce(((a,b)=>a + b), 0))/scores.length).toFixed(2));
 }
 
 export function simpleFizzBuzz(n) {

@@ -8,6 +8,7 @@
  */
 export const sumDigits = (n) => {
 	if (n === undefined) throw new Error('n is required');
+	return Array.from(String(n)).map(item => parseInt(item)).reduce(((a, b) => (a + b)), 0);
 };
 
 /**
@@ -22,10 +23,14 @@ export const createRange = (start, end, step) => {
 	if (start === undefined) throw new Error('start is required');
 	if (end === undefined) throw new Error('end is required');
 	if (step === undefined)
-		console.log(
-			"FYI: Optional step parameter not provided. Remove this check once you've handled the optional step!"
-		);
+		step = 1;
+	const arr = new Array(Math.floor(Number(end / step)));
+	arr.fill(0).forEach((item, index) => {
+		arr[index] = start + index * step
+	});
+	return arr;
 };
+
 
 /**
  * This function takes an array of user objects and their usage in minutes of various applications. The format of the data should be as follows:
@@ -59,6 +64,7 @@ export const createRange = (start, end, step) => {
 export const getScreentimeAlertList = (users, date) => {
 	if (users === undefined) throw new Error('users is required');
 	if (date === undefined) throw new Error('date is required');
+	return users.filter(item => item.screenTime.some(it => it.date === date && Object.values(it.usage).reduce((a, b) => a + b, 0) > 100)).map(item => item.username);
 };
 
 /**
